@@ -49,4 +49,18 @@ WHERE membership_id LIKE ("%48z%") and check_in_date = "20180109";
 Select * from drivers_license 
 WHERE plate_number LIKE ("%H42W%");
 
+-- 9. Buscare el id del usuario del primer numero de membresia del gimnasio. (48Z7A). Se descubrio 
+-- que la persona a la que le pertenece esta membresia es Joe Germuska con id 28819
+Select id, person_id, name from get_fit_now_member
+	Join get_fit_now_check_in
+		ON id = get_fit_now_check_in.membership_id
+		
+Where id = "48Z7A"
 
+-- 10. Buscare el id del usuario del segundo numero de membresia del gimnasio. (48Z55). Se descubrio 
+-- que la persona a la que le pertenece esta membresia es Jeremy Bowers con id 67318
+Select id, person_id, name from get_fit_now_member
+	Join get_fit_now_check_in
+		ON id = get_fit_now_check_in.membership_id
+		
+Where id = "48Z55"
