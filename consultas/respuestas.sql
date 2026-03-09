@@ -77,3 +77,7 @@ Where id = "28819" and license_id IN ("183779", "423327", "664760");
 Select * from person
 Where id = "67318" and license_id IN ("183779", "423327", "664760");
 
+
+-- 13. Podemos concluir que el es el asesino.
+INSERT INTO solution VALUES (1, 'Jeremy Bowers');
+        SELECT value FROM solution;
