@@ -38,3 +38,15 @@ Select * from interview
 		On interview.person_id = person.id
 Where id = "14887";
 
+-- 7. Busque en la lista que teniamos de las personas que havian entrado al gimnasio el 9 de enero
+-- una membresia que empezara por "48z". Se encontraron dos conicidencias. Una de ellas debe ser 
+-- el asesino (48Z7A, 48Z55)
+Select * from get_fit_now_check_in
+WHERE membership_id LIKE ("%48z%") and check_in_date = "20180109";
+
+-- 8. Busque el numero de matricula del auto. Matrícula "H42W". Descubrimos tres dueños de autos 
+-- con los siguientes id de licencia (183779, 423327, 664760)
+Select * from drivers_license 
+WHERE plate_number LIKE ("%H42W%");
+
+
