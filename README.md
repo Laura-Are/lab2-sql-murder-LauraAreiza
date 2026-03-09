@@ -308,7 +308,7 @@ Se investigó cuáles de estas sospechosas asistieron tres veces al concierto si
 
 ```sql
 SELECT * FROM facebook_event_checkin
-WHERE event_name LIKE ("%%") 
+WHERE event_name LIKE ("%concert%") 
 AND date LIKE ("%201712%");
 ```
 
