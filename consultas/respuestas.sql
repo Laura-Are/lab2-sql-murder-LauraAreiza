@@ -77,7 +77,39 @@ Where id = "28819" and license_id IN ("183779", "423327", "664760");
 Select * from person
 Where id = "67318" and license_id IN ("183779", "423327", "664760");
 
-
--- 13. Podemos concluir que el es el asesino.
+-- 13. Podemos concluir que el es el asesino. Pero se descubrio que fue contratado por una mujer que mide 
+-- entre 1.65 y 1.70, es pelirroja, conduce un Tesla Model S y asistió al concierto sinfónico de SQL tres 
+-- veces en diciembre de 2017.
 INSERT INTO solution VALUES (1, 'Jeremy Bowers');
+        SELECT value FROM solution;
+
+Select * from interview
+	Join person
+		On interview.person_id = person.id
+Where id = "67318"; 
+
+-- 14. Busque el la lista de licencias de conducir una mujer pelirroja, que conduce un Tesla Model S. Se
+-- encontraron tres sospechosas. Con estos id de licencia ("202298", "291182", "918773")
+SELECT * FROM drivers_license
+WHERE gender = "female" AND hair_color = "red" AND car_make LIKE ("%Tesla%");
+              
+
+-- 15. Se busco Los id y los nombres de las personas que corresponden a esas licencias. Se decubrieron tres
+-- mujeres (Miranda Priestly, Regina George, Red Korb) con los siguientes Id respectivamente ("99716", "90700", "78881")
+SELECT * FROM person
+	JOIN drivers_license
+		ON person.license_id = drivers_license.id	
+WHERE license_id IN ("202298", "291182", "918773");    
+
+-- 16. Se busco las personas que asistieron al concierto sinfónico de SQL tres veces en diciembre de 2017 (201712), que 
+-- coincidian con las personas sospechosas. Se coincidio con un id ("99716").
+SELECT * FROM facebook_event_checkin
+WHERE event_name LIKE ("%%") AND date LIKE ("%201712%");
+
+-- 17. buscamos este id, para confirma la identidad de esta persona. Se confirmo que es Miranda Priestly
+SELECT * FROM person
+WHERE id = "99716";
+
+-- 18. Se encontro  que quien contrato al asesino, fue Miranda Priestly
+INSERT INTO solution VALUES (1, 'Miranda Priestly');
         SELECT value FROM solution;

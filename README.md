@@ -2,10 +2,10 @@
 
 ## Datos de la Detective
 
-Actividad: Investigación del crimen en SQL City
-Detective: Laura Katherine Areiza Henao
-Curso: Estructura de Datos
-Herramienta utilizada: SQL
+Actividad: Investigación del crimen en SQL City <br>
+Detective: Laura Katherine Areiza Henao <br>
+Curso: Estructura de Datos <br>
+Herramienta utilizada: SQL <br>
 
 ## Resumen del Caso
 
@@ -30,9 +30,10 @@ WHERE date = "20180115" AND city = "SQL City";
 
 El reporte indica que existen dos testigos:
 
-Un testigo cuyo nombre no se conoce, pero vive en la última casa de Northwestern Dr.
+- Un testigo cuyo nombre no se conoce, pero vive en la última casa de Northwestern Dr.
+- Una testigo llamada Annabel, que vive en Franklin Ave. 
 
-Una testigo llamada Annabel, que vive en Franklin Ave.
+<br>
 
 ![Reporte del Paso 1](evidencia/Paso1.png)
 
@@ -47,9 +48,10 @@ WHERE name LIKE ("%Annabel%");
 
 Se descubrió que su nombre completo es:
 
-Annabel Miller
+- Annabel Miller
+- Además, se identificó su ID: 16371, lo que permite buscar su entrevista.
 
-Además, se identificó su ID: 16371, lo que permite buscar su entrevista.
+<br>
 
 ![Reporte del Paso 2](evidencia/Paso2.png)
 
@@ -94,8 +96,10 @@ LIMIT 5;
 
 Se descubrió que el testigo es:
 
-Morty Schapiro
-ID: 14887
+- Morty Schapiro
+- ID: 14887
+
+<br>
 
 ![Reporte del Paso 5](evidencia/Paso5.png)
 
@@ -112,9 +116,10 @@ Where id = "14887";
 
 El testigo indicó dos pistas importantes:
 
-El asesino tiene membresía gold en el gimnasio que empieza con "48Z".
+- El asesino tiene membresía gold en el gimnasio que empieza con "48Z".
+- El asesino escapó en un auto con matrícula que incluye "H42W".
 
-El asesino escapó en un auto con matrícula que incluye "H42W".
+<br>
 
 ![Reporte del Paso 6](evidencia/Paso6.png)
 
@@ -129,9 +134,8 @@ WHERE membership_id LIKE ("%48z%") and check_in_date = "20180109";
 
 Se encontraron dos coincidencias:
 
-48Z7A
-
-48Z55
+- 48Z7A
+- 48Z55
 
 Uno de ellos debe ser el asesino.
 
@@ -148,11 +152,11 @@ WHERE plate_number LIKE ("%H42W%");
 
 Se encontraron tres licencias relacionadas:
 
-183779
+- 183779
+- 423327
+- 664760
 
-423327
-
-664760
+<br>
 
 ![Reporte del Paso 8](evidencia/Paso8.png)
 
@@ -170,8 +174,10 @@ Where id = "48Z7A"
 
 Esta membresía pertenece a:
 
-Joe Germuska
-ID: 28819
+- Joe Germuska
+- ID: 28819
+
+<br>
 
 ![Reporte del Paso 9](evidencia/Paso9.png)
 
@@ -189,8 +195,10 @@ Where id = "48Z55"
 
 Esta membresía pertenece a:
 
-Jeremy Bowers
-ID: 67318
+- Jeremy Bowers
+- ID: 67318
+
+<br>
 
 ![Reporte del Paso 10](evidencia/Paso10.png)
 
@@ -224,7 +232,7 @@ La licencia de Jeremy Bowers sí coincide con una de las licencias relacionadas 
 
 Con toda la evidencia recopilada se puede concluir que:
 
-Jeremy Bowers es el asesino.
+**Jeremy Bowers** es el asesino.
 
 Para confirmar la solución en la plataforma se ejecutó la siguiente consulta:
 
@@ -233,4 +241,106 @@ INSERT INTO solution VALUES (1, 'Jeremy Bowers');
         SELECT value FROM solution;
 ```
 
-![Reporte del Paso 13](evidencia/Paso13.png)
+![Reporte del Paso 13](evidencia/Paso13_(confirmacion).png)
+
+### 13. Nueva pista del asesino
+
+Aunque ya se identificó al asesino, al revisar su entrevista se descubrió información adicional sobre quién lo contrató.
+
+```sql
+Select * from interview
+	Join person
+		On interview.person_id = person.id
+Where id = "67318";
+```
+
+En la entrevista, Jeremy Bowers confesó que fue contratado por una mujer que:
+
+- Mide entre 1.65 y 1.70
+- Tiene cabello rojo
+- Conduce un Tesla Model S
+
+Asistió al concierto sinfónico de SQL tres veces en diciembre de 2017
+
+![Reporte del Paso 13](evidencia/Paso13_(continuación).png)
+
+### 14. Buscar mujeres pelirrojas que conduzcan Tesla
+
+Con la información obtenida, se buscó en la tabla de licencias de conducción mujeres que coincidan con esas características.
+
+```sql
+SELECT * FROM drivers_license
+WHERE gender = "female" 
+AND hair_color = "red" 
+AND car_make LIKE ("%Tesla%");
+```
+
+Se encontraron tres posibles sospechosas con los siguientes ID de licencia:
+
+- 202298
+- 291182
+- 918773
+
+![Reporte del Paso 14](evidencia/Paso14.png)
+
+### 15. Identificar a las personas correspondientes
+
+Luego se buscó en la tabla de personas quiénes corresponden a esas licencias.
+
+```sql
+SELECT * FROM person
+	JOIN drivers_license
+		ON person.license_id = drivers_license.id	
+WHERE license_id IN ("202298", "291182", "918773");
+```
+
+Se encontraron tres mujeres:
+
+- Miranda Priestly (ID: 99716)
+- Regina George (ID: 90700)
+- Red Korb (ID: 78881)
+
+![Reporte del Paso 15](evidencia/Paso15.png)
+
+### 16. Buscar asistencia al concierto sinfónico de SQL
+
+Se investigó cuáles de estas sospechosas asistieron tres veces al concierto sinfónico de SQL en diciembre de 2017.
+
+```sql
+SELECT * FROM facebook_event_checkin
+WHERE event_name LIKE ("%%") 
+AND date LIKE ("%201712%");
+```
+
+Se encontró coincidencia con el ID 99716.
+
+![Reporte del Paso 16](evidencia/Paso16.png)
+
+### 17. Confirmar identidad de la sospechosa
+
+Finalmente, se consultó la información de la persona con ese ID.
+
+```sql
+SELECT * FROM person
+WHERE id = "99716";
+```
+
+Se confirmó que la persona corresponde a Miranda Priestly.
+
+![Reporte del Paso 17](evidencia/Paso17.png)
+
+## Conclusión Final de la Investigación
+
+Después de analizar todas las pistas y cruzar la información de las diferentes tablas, se determinó que:
+
+- Jeremy Bowers fue quien cometió el asesinato.
+- Sin embargo, Miranda Priestly fue la persona que lo contrató para llevarlo a cabo.
+
+Para confirmar la solución final en la plataforma se ejecutó la siguiente consulta:
+
+```sql
+INSERT INTO solution VALUES (1, 'Miranda Priestly');
+        SELECT value FROM solution;
+```
+
+![Reporte del Paso 18](evidencia/Paso18.png)
