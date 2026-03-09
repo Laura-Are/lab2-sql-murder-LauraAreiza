@@ -104,7 +104,7 @@ WHERE license_id IN ("202298", "291182", "918773");
 -- 16. Se busco las personas que asistieron al concierto sinfónico de SQL tres veces en diciembre de 2017 (201712), que 
 -- coincidian con las personas sospechosas. Se coincidio con un id ("99716").
 SELECT * FROM facebook_event_checkin
-WHERE event_name LIKE ("%%") AND date LIKE ("%201712%");
+WHERE event_name LIKE ("%concert%") AND date LIKE ("%201712%");
 
 -- 17. buscamos este id, para confirma la identidad de esta persona. Se confirmo que es Miranda Priestly
 SELECT * FROM person
