@@ -9,3 +9,4 @@ WHERE date = "20180115" AND city = "SQL City";
 -- nombre completo es Annabel Miller, id es 16371.
 Select * from person
 WHERE name LIKE ("%Annabel%");
+
