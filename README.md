@@ -241,7 +241,7 @@ INSERT INTO solution VALUES (1, 'Jeremy Bowers');
         SELECT value FROM solution;
 ```
 
-![Reporte del Paso 13](evidencia/Paso13_(confirmacion).png)
+![Reporte del Paso 13](evidencia/Paso13_(Confirmacion).png)
 
 ### 13. Nueva pista del asesino
 
@@ -262,7 +262,7 @@ En la entrevista, Jeremy Bowers confesó que fue contratado por una mujer que:
 
 Asistió al concierto sinfónico de SQL tres veces en diciembre de 2017
 
-![Reporte del Paso 13](evidencia/Paso13_(continuación).png)
+![Reporte del Paso 13](evidencia/Paso13_(Continuación).png)
 
 ### 14. Buscar mujeres pelirrojas que conduzcan Tesla
 
