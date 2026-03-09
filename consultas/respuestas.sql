@@ -64,3 +64,16 @@ Select id, person_id, name from get_fit_now_member
 		ON id = get_fit_now_check_in.membership_id
 		
 Where id = "48Z55"
+
+-- 11. Busque el id de licencia del primer sospechoso Joe Germuska con id 28819. Para verificar
+-- Si esta entre estos id de licencias (183779, 423327, 664760). Se descubrio que el id de licencia
+-- de Joe Germuska no esta entre las licencias sospechosas.
+Select * from person
+Where id = "28819" and license_id IN ("183779", "423327", "664760");
+
+-- 12. Busque el id de licencia del segundo sospechoso Jeremy Bowers con id 67318.Para verificar
+-- Si esta entre estos id de licencias (183779, 423327, 664760). Se descubrio que el id de licencia
+-- de Jeremy Bowers esta entre las licencias sospechosas.
+Select * from person
+Where id = "67318" and license_id IN ("183779", "423327", "664760");
+
